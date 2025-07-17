@@ -23,9 +23,13 @@ public class Ozellikler {
                     Document detayDoc = Jsoup.connect(detayLink).get();
                     String aciklama = detayDoc.select("div.product-name-container").text();
                     String fiyat = detayDoc.select("div.desktop-information-price").text();
+                    Element foto = detayDoc.select("img.swiper-main-img").first();
+                    String fotoUrl= foto.attr("data-src");
 
                     System.out.println("İlan: " + aciklama);
                     System.out.println("Fiyat: " + fiyat);
+                    System.out.println("Fotoğraf: " + fotoUrl);
+                    System.out.println("**************************************");
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);
