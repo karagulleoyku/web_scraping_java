@@ -10,7 +10,7 @@ class Araba {
 
 
 
-    public Araba(String arabaDetayLink, String aciklama, int km, String vites, String marka, String model, int fiyat) {
+    public Araba(String arabaDetayLink, String aciklama, int km) {
         this.arabaDetayLink = arabaDetayLink;
         this.aciklama = aciklama;
         this.marka = marka;
@@ -76,20 +76,20 @@ class Araba {
     public void setVites(String vites) {
         this.vites = vites;
     }
-//
-//    @Override
-//    public String toString() {
-//        return "{\n" +
-//                "  link = " + arabaDetayLink + ",\n" +
-//                "  açıklama = " + aciklama + ",\n" +
+
+    @Override
+    public String toString() {
+        return "{\n" +
+                "  link = " + arabaDetayLink + ",\n" +
+                "  açıklama = " + aciklama + ",\n" +
 //                "  marka = '" + marka + "',\n" +
 //                "  model = '" + model + "',\n" +
-//                "  km = " + km + ",\n" +
-//                "  fiyat = " + fiyat + "\n" +
-//                "  vites = " + vites + ",\n" +
-//                "}";
-//
-//    }
+                //"  km = " + km + ",\n" +
+                "  fiyat = " + fiyat + "\n" +
+                //"  vites = " + vites + ",\n" +
+                "}";
+
+    }
 }
 
 

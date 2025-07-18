@@ -7,11 +7,13 @@ import java.util.*;
 
 public class Ozellikler {
     public static void main(String[] args) throws IOException {
-        Set<String> kullanilan =new HashSet<>();
-        for (int s=1;s<=50;s++) {
+        Set<String> kullanilan = new HashSet<>();
+        //List<Araba> arabalar = new ArrayList<>();
+
+        for (int s = 1; s <= 50; s++) {
             Document doc = Jsoup.connect("https://www.arabam.com/ikinci-el?page=" + s).get();
             Elements arabaLinkleri = doc.select("a.link-overlay");
-            for (Element link : arabaLinkleri)  {
+            for (Element link : arabaLinkleri) {
                 String detayLink = "https://www.arabam.com" + link.attr("href");
 
                 if (kullanilan.contains(detayLink)) {
@@ -22,20 +24,26 @@ public class Ozellikler {
                 try {
                     Document detayDoc = Jsoup.connect(detayLink).get();
                     String aciklama = detayDoc.select("div.product-name-container").text();
-                    String fiyat = detayDoc.select("div.desktop-information-price").text();
+                    String fiyatStr = detayDoc.select("div.desktop-information-price").text();
+
+                    String cleanedPrice = fiyatStr.replaceAll("[^0-9]", "");
+                    int fiyat = Integer.parseInt(cleanedPrice);
+
                     Element foto = detayDoc.select("img.swiper-main-img").first();
-                    String fotoUrl= foto.attr("data-src");
+                    String fotoUrl = foto.attr("data-src");
 
                     System.out.println("İlan: " + aciklama);
                     System.out.println("Fiyat: " + fiyat);
                     System.out.println("Fotoğraf: " + fotoUrl);
                     System.out.println("**************************************");
 
+//                    Araba yeniAraba = new Araba(detayLink, aciklama, fiyat);
+//                    arabalar.add(yeniAraba);
+
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
         }
-
     }
 }

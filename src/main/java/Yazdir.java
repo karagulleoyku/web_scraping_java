@@ -1,17 +1,19 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 class Yazdir {
-    List<Araba> araba = new ArrayList<>();
+    List<Araba> arabalar = new ArrayList<>();
     List<String> satisKayitlari = new ArrayList<>();
 
-    public Yazdir() {
+    public Yazdir(List<Araba> cekilenArabalar) {
+        this.arabalar = arabalar;
 
     }
 
     public void arabaListele() {
-        for (Araba a : araba) {
+        for (Araba a : arabalar) {
             System.out.println(a);
         }
     }
@@ -26,8 +28,8 @@ class Yazdir {
     public void fiyataGore(Scanner scanner) {
         System.out.print("Maksimum fiyatı girin: ");
         double maxFiyat = scanner.nextDouble();
-        for (Araba a : araba) {
-            if (a.fiyat <= maxFiyat) {
+        for (Araba a : arabalar) {
+            if (a.getFiyat() <= maxFiyat) {
                 System.out.println(a);
             } else {
                 System.out.println("Bu kriterde araç bulunmamakta.");
@@ -40,9 +42,9 @@ class Yazdir {
     public void markayaGore(Scanner scanner) {
         scanner.nextLine();
         System.out.print("Aranan marka: ");
-        String markaAra = scanner.nextLine();
-        for (Araba a : araba) {
-            if (a.marka.toLowerCase().contains(markaAra)) {
+        String markaAra = scanner.nextLine().toLowerCase();
+        for (Araba a : arabalar) {
+            if (a.getMarka().toLowerCase().contains(markaAra)) {
                 System.out.println(a);
                 return;
             }
@@ -50,24 +52,22 @@ class Yazdir {
     }
 
     public void satinAl(Scanner scanner) {
-        System.out.println("Almak istediğiniz arabanın id'sini girin.");
+        System.out.println("Almak istediğiniz arabayı girin.");     //////arabaları id ile alamıyorum id'leri yok.
         int id = scanner.nextInt();
         scanner.nextLine();
 
         Araba secilen = null;
-        /*for (Araba a : araba) {
-            if (a.id == id) {
-                secilen = a;
-                break;
-            }
-        }*/
+        if (id >= 0 && id < arabalar.size()) {
+            secilen = arabalar.get(id);
+        }
+
         if (secilen == null) {
-            System.out.println("Araba yok..");
+            System.out.println("Geçersiz ID. Araba bulunamadı.");
             return;
         }
         System.out.println("Müşteri adı:");
         String ad = scanner.nextLine();
-        araba.remove(secilen);
+        arabalar.remove(secilen);
         satisKayitlari.add(ad + "  tarafından satın alındı: \n" + secilen);
         System.out.println("Satış gerçekleşti.");
 
@@ -75,7 +75,21 @@ class Yazdir {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Yazdir galeri = new Yazdir();
+        List<Araba> cekilenArabalar = new ArrayList<>();
+
+
+//        try {
+//            System.out.println("Araba verileri çekiliyor... Lütfen bekleyiniz.");
+//            //cekilenArabalar = Ozellikler.ArabaListesi();
+//            System.out.println(cekilenArabalar.size() + " adet araba verisi başarıyla çekildi.");
+//        } catch (IOException e) {
+//            System.err.println("Araba verileri çekilirken bir hata oluştu: " + e.getMessage());
+//            System.err.println("Program devam edecek ancak veri olmayabilir.");
+//        }
+
+        Yazdir galeri = new Yazdir(cekilenArabalar);
+
+
         int secim;
         do {
             System.out.println("\n==== Galeri Yönetim Sistemi ====");
