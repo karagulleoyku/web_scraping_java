@@ -1,32 +1,36 @@
 
 class Araba {
-    String arabaDetayLink;
+    String detayLink;
     String aciklama;
     String marka;
     String model;
     int km;
     String vites;
     int fiyat;
+    String fotoUrl;
 
 
-
-    public Araba(String arabaDetayLink, String aciklama, int km) {
-        this.arabaDetayLink = arabaDetayLink;
+    public Araba(String detayLink, String aciklama, int km) {
+        this.detayLink = detayLink;
         this.aciklama = aciklama;
         this.marka = marka;
         this.model = model;
         this.km = km;
         this.vites = vites;
         this.fiyat = fiyat;
+        this.fotoUrl = fotoUrl;
 
+    }
+
+    public Araba(String detayLink, String aciklama, String fiyatStr, String marka, String model, String km, String vites, String fotoUrl) {
     }
 
     public String getArabaDetayLink() {
-        return arabaDetayLink;
+        return detayLink;
     }
 
     public void setArabaDetayLink(String arabaDetayLink) {
-        this.arabaDetayLink = arabaDetayLink;
+        this.detayLink = arabaDetayLink;
     }
 
     public String getMarka() {
@@ -77,16 +81,24 @@ class Araba {
         this.vites = vites;
     }
 
+    public String getFotoUrl() {
+        return fotoUrl;
+    }
+
+    public void setFotoUrl(String fotoUrl) {
+        this.fotoUrl = fotoUrl;
+    }
+
     @Override
     public String toString() {
         return "{\n" +
-                "  link = " + arabaDetayLink + ",\n" +
+                "  foto = " + fotoUrl + ",\n" +
                 "  açıklama = " + aciklama + ",\n" +
-//                "  marka = '" + marka + "',\n" +
-//                "  model = '" + model + "',\n" +
-                //"  km = " + km + ",\n" +
+                "  marka = '" + marka + "',\n" +
+                "  model = '" + model + "',\n" +
+                "  km = " + km + ",\n" +
                 "  fiyat = " + fiyat + "\n" +
-                //"  vites = " + vites + ",\n" +
+                "  vites = " + vites + ",\n" +
                 "}";
 
     }
