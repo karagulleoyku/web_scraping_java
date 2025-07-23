@@ -20,16 +20,14 @@ class Yazdir {
         }
         System.out.println("\n=== Mevcut Arabalar ===");
         for (int i = 0; i < arabalar.size(); i++) {
-            System.out.println("ID: " + i); // Seçim için ID ekle
+            System.out.println("ID: " + i);
             System.out.println(arabalar.get(i));
-            System.out.println("--------------------------------------");
         }
     }
 
-
     public void satislar() {
         if (satisKayitlari.isEmpty()) {
-            System.out.println("Henüz hiç satış kaydedilmedi.");
+            System.out.println("Hiç satış kaydedilmedi.");
             return;
         }
         System.out.println("\n=== Satış Kayıtları ===");
@@ -44,7 +42,7 @@ class Yazdir {
         try {
             maxFiyat = scanner.nextDouble();
         } catch (InputMismatchException e) {
-            System.out.println("Geçersiz giriş. Lütfen fiyat için sayısal bir değer girin.");
+            System.out.println("Geçersiz giriş.");
             scanner.next();
             return;
         }
@@ -60,19 +58,19 @@ class Yazdir {
         if (filtrelenmisArabalar.isEmpty()) {
             System.out.println("Belirtilen fiyat aralığında araç bulunamadı.");
         } else {
-            System.out.println("\n=== Fiyat Aralığındaki Arabalar (Max " + String.format("%.2f", maxFiyat) + " TL) ===");
+            System.out.println("\nFiyat Aralığındaki Arabalar");
             for (int i = 0; i < filtrelenmisArabalar.size(); i++) {
                 System.out.println("ID: " + i);
                 System.out.println(filtrelenmisArabalar.get(i));
-                System.out.println("--------------------------------------");
             }
         }
     }
 
     public void markayaGore(Scanner scanner) {
-        scanner.nextLine();
+        //scanner.nextLine();
         System.out.print("Aranan marka: ");
         String markaAra = scanner.nextLine().toLowerCase();
+
         List<Araba> bulunanArabalar = new ArrayList<>();
 
         for (Araba a : arabalar) {
@@ -80,13 +78,12 @@ class Yazdir {
                 bulunanArabalar.add(a);
             }
             if (bulunanArabalar.isEmpty()) {
-                System.out.println("Marka '" + markaAra + "' için araç bulunamadı.");
+                System.out.println("Araç bulunamadı.");
             } else {
-                System.out.println("\n=== Marka '" + markaAra + "'ya Göre Arabalar ===");
+                System.out.println("\nAranan Markaya Göre Arabalar");
                 for (int i = 0; i < bulunanArabalar.size(); i++) {
                     System.out.println("ID: " + i);
                     System.out.println(bulunanArabalar.get(i));
-                    System.out.println("--------------------------------------");
                 }
             }
         }
@@ -95,8 +92,8 @@ class Yazdir {
 
 
     public void satinAl(Scanner scanner) {
-        arabaListele(); // Mevcut arabaları ID'leriyle göster
-        System.out.println("Almak istediğiniz arabayı girin.");     //////arabaları id ile alamıyorum id'leri yok.
+        arabaListele();
+        System.out.println("Almak istediğiniz arabayı girin.");
         int id = scanner.nextInt();
         scanner.nextLine();
 
@@ -106,7 +103,7 @@ class Yazdir {
         }
 
         if (secilen == null) {
-            System.out.println("Geçersiz ID. Araba bulunamadı.");
+            System.out.println("Araba bulunamadı.");
             return;
         }
         System.out.println("Müşteri adı:");
@@ -114,26 +111,20 @@ class Yazdir {
 
         arabalar.remove(secilen);
         satisKayitlari.add(ad + "  tarafından satın alındı: \n" + secilen);
-        System.out.println("Satış gerçekleşti.");
-
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         List<Araba> cekilenArabalar = new ArrayList<>();
-
-
         try {
-            System.out.println("Araba verileri çekiliyor... Lütfen bekleyiniz.");
+            System.out.println("Araba verileri çekiliyor...");
             cekilenArabalar = Ozellikler.arabaIlanları();
-            System.out.println(cekilenArabalar.size() + " adet araba verisi başarıyla çekildi.");
+            System.out.println(cekilenArabalar.size() + " adet araba verisi çekildi.");
         } catch (IOException e) {
             System.err.println("Araba verileri çekilirken bir hata oluştu: " + e.getMessage());
-            System.err.println("Program devam edecek ancak veri olmayabilir.");
         }
 
         Yazdir galeri = new Yazdir(cekilenArabalar);
-
 
         int secim;
         do {

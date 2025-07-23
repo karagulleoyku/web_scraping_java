@@ -27,8 +27,8 @@ public class Ozellikler {
 
                     String aciklama = detayDoc.select("div.product-name-container").text();
                     String fiyatStr = detayDoc.select("div.desktop-information-price").text();
-                    String temizFiyat = fiyatStr.replaceAll("[^\\d]", "");
-                    double fiyat = Double.parseDouble(temizFiyat);
+                    String yeniFiyat = fiyatStr.replaceAll("[^\\d]", "");
+                    double fiyat = Double.parseDouble(yeniFiyat);
 
                     Element foto = detayDoc.select("img.swiper-main-img").first();
                     String fotoUrl = (foto != null) ? foto.attr("data-src") : "Fotoğraf bulunamadı";
@@ -53,14 +53,13 @@ public class Ozellikler {
                             vites = value;
                         }
                     }
-                    marka = (marka != null && !marka.trim().isEmpty()) ? marka : "Marka Belirtilmemiş";
-                    model = (model != null && !model.trim().isEmpty()) ? model : "Model Belirtilmemiş";
-                    km = (km != null && !km.trim().isEmpty()) ? km : "KM Belirtilmemiş"; // Burası özellikle önemli!
-                    vites = (vites != null && !vites.trim().isEmpty()) ? vites : "Vites Tipi Belirtilmemiş";
-                    // Fiyat ve açıklama için de benzer kontrol yapılabilir,
-                    // ancak Araba constructor'ı zaten bunları ele alıyor.
-                    fiyatStr = (fiyatStr != null && !fiyatStr.trim().isEmpty()) ? fiyatStr : "0 TL"; // Fiyat string'i boşsa varsayılan atayın
-                    aciklama = (aciklama != null && !aciklama.trim().isEmpty()) ? aciklama : "Açıklama Belirtilmemiş";
+
+                    marka = (marka != null) ? marka : "Marka Belirtilmemiş";
+                    model = (model != null) ? model : "Model Belirtilmemiş";
+                    km = (km != null ) ? km : "KM Belirtilmemiş";
+                    vites = (vites != null) ? vites : "Vites Tipi Belirtilmemiş";
+                    fiyatStr = (fiyatStr != null) ? fiyatStr : "Fiyat Belirtilmemiş.";
+                    aciklama = (aciklama != null) ? aciklama : "Açıklama Belirtilmemiş";
 
 //                    System.out.println("İlan: " + aciklama);
 //                    System.out.println("Fiyat: " + fiyat);
