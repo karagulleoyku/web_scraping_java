@@ -4,13 +4,13 @@ class Araba {
     String aciklama;
     String marka;
     String model;
-    int km;
+    String km;
     String vites;
-    int fiyat;
+    double fiyat;
     String fotoUrl;
 
 
-    public Araba(String detayLink, String aciklama, int km) {
+    public Araba(String detayLink, String aciklama, double fiyat, String marka, String model, String km, String vites, String fotoUrl) {
         this.detayLink = detayLink;
         this.aciklama = aciklama;
         this.marka = marka;
@@ -19,75 +19,40 @@ class Araba {
         this.vites = vites;
         this.fiyat = fiyat;
         this.fotoUrl = fotoUrl;
-
     }
 
-    public Araba(String detayLink, String aciklama, String fiyatStr, String marka, String model, String km, String vites, String fotoUrl) {
-    }
-
-    public String getArabaDetayLink() {
+    public String getDetayLink() {
         return detayLink;
-    }
-
-    public void setArabaDetayLink(String arabaDetayLink) {
-        this.detayLink = arabaDetayLink;
     }
 
     public String getMarka() {
         return marka;
     }
 
-    public void setMarka(String marka) {
-        this.marka = marka;
-    }
-
     public String getModel() {
         return model;
     }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public int getFiyat() {
+    public double getFiyat() {
         return fiyat;
-    }
-
-    public void setFiyat(int fiyat) {
-        this.fiyat = fiyat;
     }
 
     public String getAciklama() {
         return aciklama;
     }
 
-    public void setAciklama(String aciklama) {
-        this.aciklama = aciklama;
-    }
-
-    public int getKm() {
+    public String getKm() {
         return km;
-    }
-
-    public void setKm(int km) {
-        this.km = km;
     }
 
     public String getVites() {
         return vites;
     }
 
-    public void setVites(String vites) {
-        this.vites = vites;
-    }
-
     public String getFotoUrl() {
         return fotoUrl;
     }
 
-    public void setFotoUrl(String fotoUrl) {
-        this.fotoUrl = fotoUrl;
-    }
 
     @Override
     public String toString() {
@@ -99,6 +64,7 @@ class Araba {
                 "  km = " + km + ",\n" +
                 "  fiyat = " + fiyat + "\n" +
                 "  vites = " + vites + ",\n" +
+                "  detay link = " + detayLink + "\n" +
                 "}";
 
     }

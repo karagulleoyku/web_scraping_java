@@ -1,24 +1,37 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 class Yazdir {
-    List<Araba> arabalar = new ArrayList<>();
-    List<String> satisKayitlari = new ArrayList<>();
+    List<Araba> arabalar;
+    List<String> satisKayitlari;
 
     public Yazdir(List<Araba> cekilenArabalar) {
-        this.arabalar = arabalar;
-
+        this.arabalar = new ArrayList<>(cekilenArabalar);;
+        this.satisKayitlari = new ArrayList<>();
     }
 
     public void arabaListele() {
-        for (Araba a : arabalar) {
-            System.out.println(a);
+        if (arabalar.isEmpty()) {
+            System.out.println("Listelenecek araç bulunmamaktadır.");
+            return;
+        }
+        System.out.println("\n=== Mevcut Arabalar ===");
+        for (int i = 0; i < arabalar.size(); i++) {
+            System.out.println("ID: " + i); // Seçim için ID ekle
+            System.out.println(arabalar.get(i));
+            System.out.println("--------------------------------------");
         }
     }
 
+
     public void satislar() {
+        if (satisKayitlari.isEmpty()) {
+            System.out.println("Henüz hiç satış kaydedilmedi.");
+            return;
+        }
         System.out.println("\n=== Satış Kayıtları ===");
         for (String kayit : satisKayitlari) {
             System.out.println(kayit);
@@ -27,14 +40,31 @@ class Yazdir {
 
     public void fiyataGore(Scanner scanner) {
         System.out.print("Maksimum fiyatı girin: ");
-        double maxFiyat = scanner.nextDouble();
-        for (Araba a : arabalar) {
-            if (a.getFiyat() <= maxFiyat) {
-                System.out.println(a);
-            } else {
-                System.out.println("Bu kriterde araç bulunmamakta.");
-                return;
+        double maxFiyat ;
+        try {
+            maxFiyat = scanner.nextDouble();
+        } catch (InputMismatchException e) {
+            System.out.println("Geçersiz giriş. Lütfen fiyat için sayısal bir değer girin.");
+            scanner.next();
+            return;
+        }
+        scanner.nextLine();
 
+        List<Araba> filtrelenmisArabalar = new ArrayList<>();
+        for (Araba araba : arabalar) {
+            if (araba.getFiyat() <= maxFiyat) {
+                filtrelenmisArabalar.add(araba);
+            }
+        }
+
+        if (filtrelenmisArabalar.isEmpty()) {
+            System.out.println("Belirtilen fiyat aralığında araç bulunamadı.");
+        } else {
+            System.out.println("\n=== Fiyat Aralığındaki Arabalar (Max " + String.format("%.2f", maxFiyat) + " TL) ===");
+            for (int i = 0; i < filtrelenmisArabalar.size(); i++) {
+                System.out.println("ID: " + i);
+                System.out.println(filtrelenmisArabalar.get(i));
+                System.out.println("--------------------------------------");
             }
         }
     }
@@ -43,15 +73,29 @@ class Yazdir {
         scanner.nextLine();
         System.out.print("Aranan marka: ");
         String markaAra = scanner.nextLine().toLowerCase();
+        List<Araba> bulunanArabalar = new ArrayList<>();
+
         for (Araba a : arabalar) {
             if (a.getMarka().toLowerCase().contains(markaAra)) {
-                System.out.println(a);
-                return;
+                bulunanArabalar.add(a);
+            }
+            if (bulunanArabalar.isEmpty()) {
+                System.out.println("Marka '" + markaAra + "' için araç bulunamadı.");
+            } else {
+                System.out.println("\n=== Marka '" + markaAra + "'ya Göre Arabalar ===");
+                for (int i = 0; i < bulunanArabalar.size(); i++) {
+                    System.out.println("ID: " + i);
+                    System.out.println(bulunanArabalar.get(i));
+                    System.out.println("--------------------------------------");
+                }
             }
         }
+
     }
 
+
     public void satinAl(Scanner scanner) {
+        arabaListele(); // Mevcut arabaları ID'leriyle göster
         System.out.println("Almak istediğiniz arabayı girin.");     //////arabaları id ile alamıyorum id'leri yok.
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -67,6 +111,7 @@ class Yazdir {
         }
         System.out.println("Müşteri adı:");
         String ad = scanner.nextLine();
+
         arabalar.remove(secilen);
         satisKayitlari.add(ad + "  tarafından satın alındı: \n" + secilen);
         System.out.println("Satış gerçekleşti.");
@@ -78,14 +123,14 @@ class Yazdir {
         List<Araba> cekilenArabalar = new ArrayList<>();
 
 
-//        try {
-//            System.out.println("Araba verileri çekiliyor... Lütfen bekleyiniz.");
-//            //cekilenArabalar = Ozellikler.ArabaListesi();
-//            System.out.println(cekilenArabalar.size() + " adet araba verisi başarıyla çekildi.");
-//        } catch (IOException e) {
-//            System.err.println("Araba verileri çekilirken bir hata oluştu: " + e.getMessage());
-//            System.err.println("Program devam edecek ancak veri olmayabilir.");
-//        }
+        try {
+            System.out.println("Araba verileri çekiliyor... Lütfen bekleyiniz.");
+            cekilenArabalar = Ozellikler.arabaIlanları();
+            System.out.println(cekilenArabalar.size() + " adet araba verisi başarıyla çekildi.");
+        } catch (IOException e) {
+            System.err.println("Araba verileri çekilirken bir hata oluştu: " + e.getMessage());
+            System.err.println("Program devam edecek ancak veri olmayabilir.");
+        }
 
         Yazdir galeri = new Yazdir(cekilenArabalar);
 
