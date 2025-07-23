@@ -1,3 +1,4 @@
+import java.util.List;
 
 class Araba {
     String detayLink;
@@ -7,10 +8,10 @@ class Araba {
     String km;
     String vites;
     double fiyat;
-    String fotoUrl;
+    List<String> fotoUrls;
 
 
-    public Araba(String detayLink, String aciklama, double fiyat, String marka, String model, String km, String vites, String fotoUrl) {
+    public Araba(String detayLink, String aciklama, String fiyatStr, String marka, String model, String km, String vites, List<String> fotoUrl) {
         this.detayLink = detayLink;
         this.aciklama = aciklama;
         this.marka = marka;
@@ -18,7 +19,19 @@ class Araba {
         this.km = km;
         this.vites = vites;
         this.fiyat = fiyat;
-        this.fotoUrl = fotoUrl;
+        this.fotoUrls = fotoUrls;
+
+        try {
+            if (fiyatStr != null && !fiyatStr.trim().isEmpty() && !fiyatStr.equals("0 TL")) {
+                this.fiyat = Double.parseDouble(fiyatStr.replaceAll("[^\\d,]", "").replace(",", "."));
+            } else {
+                this.fiyat = 0.0;
+            }
+        } catch (NumberFormatException e) {
+            this.fiyat = 0.0;
+            System.err.println("Uyarı: Fiyat ayrıştırılamadı '" + fiyatStr + "' için " + aciklama + ". 0.0 olarak ayarlanıyor. Hata: " + e.getMessage());
+
+        }
     }
 
     public String getDetayLink() {
@@ -49,15 +62,15 @@ class Araba {
         return vites;
     }
 
-    public String getFotoUrl() {
-        return fotoUrl;
+    public List<String> getFotoUrls() {
+        return fotoUrls;
     }
 
 
     @Override
     public String toString() {
         return "{\n" +
-                "  foto = " + fotoUrl + ",\n" +
+                "  foto = " + fotoUrls + ",\n" +
                 "  açıklama = " + aciklama + ",\n" +
                 "  marka = '" + marka + "',\n" +
                 "  model = '" + model + "',\n" +

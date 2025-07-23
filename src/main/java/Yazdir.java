@@ -67,7 +67,6 @@ class Yazdir {
     }
 
     public void markayaGore(Scanner scanner) {
-        //scanner.nextLine();
         System.out.print("Aranan marka: ");
         String markaAra = scanner.nextLine().toLowerCase();
 
@@ -77,9 +76,9 @@ class Yazdir {
             if (a.getMarka().toLowerCase().contains(markaAra)) {
                 bulunanArabalar.add(a);
             }
-            if (bulunanArabalar.isEmpty()) {
+        if (bulunanArabalar.isEmpty()) {
                 System.out.println("Araç bulunamadı.");
-            } else {
+        } else {
                 System.out.println("\nAranan Markaya Göre Arabalar");
                 for (int i = 0; i < bulunanArabalar.size(); i++) {
                     System.out.println("ID: " + i);
@@ -89,7 +88,6 @@ class Yazdir {
         }
 
     }
-
 
     public void satinAl(Scanner scanner) {
         arabaListele();
@@ -110,6 +108,7 @@ class Yazdir {
         String ad = scanner.nextLine();
 
         arabalar.remove(secilen);
+
         satisKayitlari.add(ad + "  tarafından satın alındı: \n" + secilen);
     }
 

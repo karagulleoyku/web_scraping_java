@@ -10,7 +10,7 @@ public class Ozellikler {
         Set<String> kullanilan = new HashSet<>();
         List<Araba> arabalar = new ArrayList<>();
 
-        for (int s = 1; s <= 50; s++) {
+        for (int s = 1; s <= 3; s++) {
             Document doc = Jsoup.connect("https://www.arabam.com/ikinci-el?page=" + s).get();
             Elements arabaLinkleri = doc.select("a.link-overlay");
 
@@ -27,11 +27,21 @@ public class Ozellikler {
 
                     String aciklama = detayDoc.select("div.product-name-container").text();
                     String fiyatStr = detayDoc.select("div.desktop-information-price").text();
-                    String yeniFiyat = fiyatStr.replaceAll("[^\\d]", "");
-                    double fiyat = Double.parseDouble(yeniFiyat);
 
-                    Element foto = detayDoc.select("img.swiper-main-img").first();
-                    String fotoUrl = (foto != null) ? foto.attr("data-src") : "Fotoğraf bulunamadı";
+                    List<String> fotoUrlList = new ArrayList<>();
+//
+                    Elements foto = detayDoc.select("img.swiper-main-img");
+
+                    if (foto.isEmpty()) {
+                        fotoUrlList.add("Fotoğraf Bulunamadı"); // Hiç fotoğraf bulunamazsa varsayılan metin ekle
+                    } else {
+                        for (Element fotoElement : foto) {
+                            String url = fotoElement.attr("data-src");
+                            if (url != null && !url.trim().isEmpty()) {
+                                fotoUrlList.add(url);
+                            }
+                        }
+                    }
 
                     Elements ozellikler = detayDoc.select("div.property-item");
                     String model = null;
@@ -67,10 +77,10 @@ public class Ozellikler {
 //                    System.out.println("Model: " + model);
 //                    System.out.println("Kilometre: " + km );
 //                    System.out.println("Vites Türü: " + vites);
-//                    System.out.println("Fotoğraf: " + fotoUrl);
+//                    System.out.println("Fotoğraf: " + fotoUrlList);
 //                    System.out.println("**************************************");
 
-                    Araba yeniAraba = new Araba(detayLink, aciklama, fiyat, marka, model, km, vites, fotoUrl);
+                    Araba yeniAraba = new Araba(detayLink, aciklama, fiyatStr, marka, model, km, vites, fotoUrlList);
                     arabalar.add(yeniAraba);
 
                 } catch (IOException e) {
