@@ -11,7 +11,7 @@ public class Ozellikler {
         Set<String> kullanilan = new HashSet<>();
         List<Araba> arabalar = new ArrayList<>();
 
-        for (int s = 1; s <=2; s++) {
+        for (int s = 1; s <=50; s++) {
             Document doc = Jsoup.connect("https://www.arabam.com/ikinci-el?page=" + s).get();
             Elements arabaLinkleri = doc.select("a.link-overlay");
 
