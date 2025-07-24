@@ -1,5 +1,4 @@
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -44,6 +43,7 @@ public class Ozellikler {
                             }
                         }
                     }
+
                     Elements ozellikler = detayDoc.select("div.property-item");
                     String model = null;
                     String km = null;
