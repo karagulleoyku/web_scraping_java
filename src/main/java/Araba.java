@@ -11,7 +11,7 @@ class Araba {
     List<String> fotoUrls;
 
 
-    public Araba(String detayLink, String aciklama, String fiyatStr, String marka, String model, String km, String vites, List<String> fotoUrl) {
+    public Araba(String detayLink, String aciklama, String fiyatStr, String marka, String model, String km, String vites, List<String> fotoUrls) {
         this.detayLink = detayLink;
         this.aciklama = aciklama;
         this.marka = marka;
@@ -68,7 +68,7 @@ class Araba {
     @Override
     public String toString() {
         return "{\n" +
-                "  foto = " + fotoUrls + ",\n" +
+                "  fotolar = " + fotoUrls + ",\n" +
                 "  açıklama = " + aciklama + ",\n" +
                 "  marka = '" + marka + "',\n" +
                 "  model = '" + model + "',\n" +
