@@ -1,3 +1,5 @@
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -10,7 +12,7 @@ public class Ozellikler {
         Set<String> kullanilan = new HashSet<>();
         List<Araba> arabalar = new ArrayList<>();
 
-        for (int s = 1; s <= 3; s++) {
+        for (int s = 1; s <=2; s++) {
             Document doc = Jsoup.connect("https://www.arabam.com/ikinci-el?page=" + s).get();
             Elements arabaLinkleri = doc.select("a.link-overlay");
 
@@ -29,11 +31,11 @@ public class Ozellikler {
                     String fiyatStr = detayDoc.select("div.desktop-information-price").text();
 
                     List<String> fotoUrlList = new ArrayList<>();
-//
+
                     Elements foto = detayDoc.select("img.swiper-main-img");
 
                     if (foto.isEmpty()) {
-                        fotoUrlList.add("Fotoğraf Bulunamadı"); // Hiç fotoğraf bulunamazsa varsayılan metin ekle
+                        fotoUrlList.add("Fotoğraf Bulunamadı");
                     } else {
                         for (Element fotoElement : foto) {
                             String url = fotoElement.attr("data-src");
@@ -42,7 +44,6 @@ public class Ozellikler {
                             }
                         }
                     }
-
                     Elements ozellikler = detayDoc.select("div.property-item");
                     String model = null;
                     String km = null;
@@ -59,14 +60,14 @@ public class Ozellikler {
                             model = value;
                         } else if (key.contains("Kilometre")) {
                             km = value;
-                        }else if (key.contains("Vites Tipi")) {
+                        } else if (key.contains("Vites Tipi")) {
                             vites = value;
                         }
                     }
 
                     marka = (marka != null) ? marka : "Marka Belirtilmemiş";
                     model = (model != null) ? model : "Model Belirtilmemiş";
-                    km = (km != null ) ? km : "KM Belirtilmemiş";
+                    km = (km != null) ? km : "KM Belirtilmemiş";
                     vites = (vites != null) ? vites : "Vites Tipi Belirtilmemiş";
                     fiyatStr = (fiyatStr != null) ? fiyatStr : "Fiyat Belirtilmemiş.";
                     aciklama = (aciklama != null) ? aciklama : "Açıklama Belirtilmemiş";

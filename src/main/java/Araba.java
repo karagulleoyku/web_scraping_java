@@ -18,7 +18,6 @@ class Araba {
         this.model = model;
         this.km = km;
         this.vites = vites;
-        this.fiyat = fiyat;
         this.fotoUrls = fotoUrls;
 
         try {
@@ -65,7 +64,6 @@ class Araba {
     public List<String> getFotoUrls() {
         return fotoUrls;
     }
-
 
     @Override
     public String toString() {
